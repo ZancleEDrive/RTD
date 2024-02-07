@@ -40,7 +40,7 @@ void loop() {
   /*
    * Button Check
    */
-  if (digitalRead(BUTTON) == 0 && button_pressed == false){
+  if (digitalRead(BUTTON) == 0){
     button_pressed = true;
     Serial.println("Button Pressed");
   }
@@ -50,7 +50,7 @@ void loop() {
   /*
    * BRAKE CHECK
    */
-   if((rxId & 0xF1906) == 0xF1906 && brake == false){
+   if((rxId & 0xF1906) == 0xF1906){
      if(rxBuf[0]!=0){
        brake = true;
        Serial.println("Brake pressed");
@@ -60,10 +60,13 @@ void loop() {
   /*
    * TS CHECK
    */
-   else if((rxId & 0xF1901) == 0xF1901 && TS == false){
+   else if((rxId & 0xF1901) == 0xF1901){
     if(rxBuf[0]!=0){
       Serial.println("TS ACTIVE");
       TS = true;
+    }
+    else{
+      TS = false;
     }
    }
 
