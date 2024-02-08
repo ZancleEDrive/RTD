@@ -24,7 +24,7 @@ MCP_CAN CAN0(10);   // Set CS to pin 10
 
 void setup() {
   Serial.begin(115200);
-  if (CAN0.begin(MCP_ANY, CAN_250KBPS, MCP_8MHZ) == CAN_OK)
+  if (CAN0.begin(MCP_ANY, CAN_1000KBPS, MCP_8MHZ) == CAN_OK)
     Serial.println("MCP2515 Initialized Successfully!");
   else
     Serial.println("Error Initializing MCP2515...");
