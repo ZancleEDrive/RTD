@@ -7,6 +7,7 @@
 #include <SPI.h>
 
 
+//ciao prova
 // CAN RX Variables
 long unsigned rxId;
 unsigned char len;
