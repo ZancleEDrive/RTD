@@ -6,10 +6,8 @@
 long unsigned rxId;
 unsigned char len;
 byte rxBuf[8];
-unsigned int error = 0;
+
 MCP_CAN CAN0(10);   // Set CS to pin 10
-
-
 
 int main (){
   init();
@@ -39,26 +37,19 @@ int main (){
   pinMode(BUTTON, INPUT_PULLUP);
 
   while (1){
-    while (!error){
-      if (digitalRead(BUTTON) == 0){
-        Serial.println("Button Pressed");
-        CAN0.readMsgBuf(&rxId, &len, rxBuf);
-        if((rxId & 0x1FFFFFFF) == 0xF1901){
-          error = 1;
-          }
-        else if ((rxId & 0x1FFFFFFF) == 0xF1906){
-         //Turn on LED   
-          digitalWrite(LED, HIGH);
-          delay(2000);
-          //Turn off LED   
-          digitalWrite(LED, LOW);
-        //CAN0.readMsgBuf(&rxId, &len, rxBuf);
-        //CAN0.readMsgBuf(&rxId, &len, rxBuf);
-
+    if (CAN0.readMsgBuf(&rxId, &len, rxBuf)== CAN_OK){
+      if((rxId & 0xF1901) == 0xF1901){
+        Serial.println("TS error");
+        exit(0);
         }
-      }
-  }
-        rxId = 0;
- }  
-  
-}
+      if(((rxId & 0xF1906) == 0xF1906) && (digitalRead(BUTTON) == 0)){
+        //Turn on LED   
+        digitalWrite(LED, HIGH);
+        delay(2000);
+        //Turn off LED   
+        digitalWrite(LED, LOW);
+        exit(0);
+        }
+     }
+    }
+ }
