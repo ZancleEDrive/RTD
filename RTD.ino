@@ -29,8 +29,6 @@ int main (){
   CAN0.init_Filt(4,1,0x000F1906);                // Init fifth filter...
   CAN0.init_Filt(5,1,0x000F1906);                // Init sixth filter...
 
-
-  // Since we do not set NORMAL mode, we are in loopback mode by default.
   CAN0.setMode(MCP_NORMAL);
 
   pinMode(LED, OUTPUT);
