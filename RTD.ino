@@ -36,11 +36,11 @@ int main (){
 
   while (1){
     if (CAN0.readMsgBuf(&rxId, &len, rxBuf)== CAN_OK){
-      if((rxId & 0xF1901) == 0xF1901){
+      if((rxId & 0xFFFFF) == 0xF1901){
         Serial.println("TS error");
         exit(0);
         }
-      if(((rxId & 0xF1906) == 0xF1906) && (digitalRead(BUTTON) == 0)){
+      if(((rxId & 0xFFFFF) == 0xF1906) && (digitalRead(BUTTON) == 0)){
         //Turn on LED   
         digitalWrite(LED, HIGH);
         delay(2000);
